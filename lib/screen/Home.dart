@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_multi_language_flutter/translations/locale_constant.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
   final locales = [
     {'name': 'English', 'locale': Locale('en', 'US')},
     {'name': 'اردو', 'locale': Locale('ur', 'PK')},
@@ -40,7 +46,7 @@ class Home extends StatelessWidget {
 
   updateLocale(Locale locale, BuildContext context) {
     Navigator.of(context).pop();
-    setLocale(locale.languageCode);
+    setLocale(locale.languageCode, locale.countryCode);
     Get.updateLocale(locale);
   }
 

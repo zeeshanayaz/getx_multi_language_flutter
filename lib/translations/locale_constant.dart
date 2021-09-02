@@ -1,24 +1,29 @@
 import 'dart:ui';
 
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String prefSelectedLanguageCode = "SelectedLanguageCode";
+const String prefSelectedCountryCode = "SelectedCountryCode";
 
 
-setLocale(String languageCode) async {
+setLocale(String languageCode, String countryCode) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  print("Preference Updated $languageCode");
   prefs.setString(prefSelectedLanguageCode, languageCode);
+  prefs.setString(prefSelectedCountryCode, countryCode);
 }
 
 
 Future<Locale> getLocale() async {
   SharedPreferences _prefs = await SharedPreferences.getInstance();
   String languageCode = _prefs.getString(prefSelectedLanguageCode) ?? "en";
-  return _locale(languageCode);
+  String countryCode = _prefs.getString(prefSelectedCountryCode) ?? "US";
+  return _locale(languageCode, countryCode);
 }
 
-Locale _locale(String languageCode) {
+Locale _locale(String languageCode,String countryCode) {
   return languageCode != null && languageCode.isNotEmpty
-      ? Locale(languageCode, '')
+      ? Locale(languageCode, countryCode)
       : Locale('en', 'US');
 }
